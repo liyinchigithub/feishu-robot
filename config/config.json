@@ -1,0 +1,12 @@
+{
+    "jira": {
+        "url": "https://jira.xxxx.com",
+        "url_browse": "https://jira.xxxx.com/browse/",
+        "username": "",
+        "password": ""
+    },
+    "feishu": {
+        "webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/xxxx",
+        "secret":"xxxx"
+    }
+}

@@ -1,0 +1,11 @@
+LICENSE.txt
+MANIFEST.in
+README.rst
+setup.cfg
+setup.py
+bunch/__init__.py
+bunch/test.py
+bunch.egg-info/PKG-INFO
+bunch.egg-info/SOURCES.txt
+bunch.egg-info/dependency_links.txt
+bunch.egg-info/top_level.txt
