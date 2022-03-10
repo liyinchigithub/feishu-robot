@@ -1,5 +1,7 @@
 # feishu-robot
 
+[![python](https://img.shields.io/badge/python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/) [![pip](https://img.shields.io/badge/pip-22.0.4-yellow.svg)](https://pip.pypa.io/en/stable/)
+
 飞书机器人，每日发送测试人员缺陷情况到飞书群
 
 <img width="400" height="400" alt="image" src="https://user-images.githubusercontent.com/19643260/157470829-97598419-f16f-4f6a-b95b-45756a116035.png">
