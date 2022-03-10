@@ -2,12 +2,15 @@
 
 飞书机器人，每日发送测试人员缺陷情况到飞书群
 
+<img width="400" height="400" alt="image" src="https://user-images.githubusercontent.com/19643260/157470829-97598419-f16f-4f6a-b95b-45756a116035.png">
 
-
-# 环境配置
-
->安装python、pip
-
+# 环境要求
+|环境|版本|
+|-|-|
+|python|3.7.4|
+|pip|22.0.4|
+ 
+ 
 ## 更新pip
 
 ```python
@@ -22,7 +25,8 @@ python -m venv tutorial-env
 ```
 
 ## 激活虚拟环境
-当激活虚拟环境时命令行上会有个虚拟环境名前缀。
+
+* 当激活虚拟环境时命令行上会有个虚拟环境名前缀
 
 #### Unix或MacOS上激活虚拟环境
 ```shell
@@ -43,11 +47,11 @@ pip install -r requirements.txt
 ```shell
 pip freeze > requirements.txt
 ```
-# 使用
+# 项目使用说明
 
-## 配置
+## 1.修改配置
 
-第一个配置，配置jira和飞书机器人参数
+（1）配置jira、飞书机器人
 >config/config.json
 ```json
 {
@@ -63,7 +67,7 @@ pip freeze > requirements.txt
     }
 }
 ```
-第二个配置，配置测试团队成员jira账号和姓名
+（2）jira账号和姓名（配置测试团队成员）
 >config/userInfo.json
 
 ```json
@@ -82,9 +86,9 @@ pip freeze > requirements.txt
 }
 ```
 
-## 运行脚本
+# 运行脚本
 
-# 单元测试
+## 单元测试
 
 ```shell
 cd src/test
@@ -100,7 +104,6 @@ pytest
 
 [消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 
-<img width="572" alt="image" src="https://user-images.githubusercontent.com/19643260/157470829-97598419-f16f-4f6a-b95b-45756a116035.png">
 
 <img width="1439" alt="image" src="https://user-images.githubusercontent.com/19643260/157471462-13bbc85d-8c14-4884-a729-52f4eb248b47.png">
 
@@ -122,7 +125,7 @@ pytest
 } 
 ```
 
-@单个用户时，user_id填open_id，必须是有效值，否则取名字展示，没有@效果；@所有人必须满足所在群开启@所有人功能。
+>@单个用户时，user_id填open_id，必须是有效值，否则取名字展示，没有@效果；@所有人必须满足所在群开启@所有人功能。
 
 
 ## 飞书机器人-可发送的消息类型
