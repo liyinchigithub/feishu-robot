@@ -8,8 +8,8 @@ import time
 import logging #日志引入
 '''
     飞书机器人发送消息
-    :param  飞书webhook地址
-    :param  发送消息内容
+    :param  web_hook 飞书webhook地址
+    :param  message_body 发送消息内容
 '''
 class feishu_robot():
     def __init__(self,web_hook,message_body,payload_message=''):

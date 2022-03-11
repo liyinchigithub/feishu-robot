@@ -2,9 +2,9 @@
 # -*- coding: UTF-8 -*-
 from jira import JIRA
 
-url = 'https://jira.homeking365.com'
+url = 'https://jira.xxx.com'
 
-auth = ("liyc", "")#  jira登录账号和密码
+auth = ("账号", "密码")#  jira登录账号和密码
 
 jira = JIRA(auth=auth, options={'server': url})
 

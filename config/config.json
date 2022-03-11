@@ -1,12 +1,17 @@
 {
-    "jira": {
-        "url": "https://jira.xxxx.com",
-        "url_browse": "https://jira.xxxx.com/browse/",
-        "username": "",
-        "password": ""
-    },
-    "feishu": {
-        "webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/xxxx",
-        "secret":"xxxx"
-    }
+	"jira": {
+		"url": "https://jira.xxxx.com",
+		"url_browse": "https://jira.xxxx.com/browse/",
+		"username": "你的jira账号",
+		"password": "你的jira密码"
+	},
+	"feishu": {
+		"webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/xxxx",
+		"secret": "xxxx"
+	},
+	"timing_task": {
+		"week": "1-5",
+		"hour": 9,
+		"minute": 30
+	}
 }

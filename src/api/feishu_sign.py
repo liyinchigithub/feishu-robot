@@ -4,6 +4,12 @@ import hashlib
 import base64
 import hmac
 
+"""
+    @Time :2022/02/11
+    @Author :liyinchi
+    @File :main.py
+    @Ddescription: 飞书机器人签名
+"""
 class sign:
   def __init__(self,timestamp, secret):
         self.timestamp=timestamp

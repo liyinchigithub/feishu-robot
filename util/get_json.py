@@ -6,13 +6,14 @@ import time
 import datetime
 import json
 from bunch import Bunch
-'''
-    [配置读取]
-    配置读取函数提供的功能和扩展，如下：
-    配置文件是JSON格式；
-    配置文件转换为配置类和配置字典
-'''
 
+"""
+    @Time :2022/02/11
+    @Author :liyinchi
+    @File :jira_get.py
+    @Version：1.0
+    @Ddescription: 配置读取函数提供的功能和扩展，如下：配置文件是JSON格式；配置文件转换为配置类和配置字典
+"""
 class config():
     def __init__(self,json_file):
         self.json_file=json_file

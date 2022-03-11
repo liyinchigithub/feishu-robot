@@ -45,10 +45,16 @@ python3.7 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-#### 如果引入其他新的依赖，可以执行冻结第三方库，就是将所有第三方库及版本号保存到requirements.txt文本文件中
+* 如果引入其他新的依赖，可以执行冻结第三方库，就是将所有第三方库及版本号保存到requirements.txt文本文件中
 ```shell
 pip freeze > requirements.txt
 ```
+* 如果pip不起作用，可以从pypi上下载最新的源码包(https://pypi.python.org/pypi/)进行安装：
+```shell
+python setup.py install 
+```
+
+
 # 项目使用说明
 
 ## 1.修改配置
@@ -66,6 +72,11 @@ pip freeze > requirements.txt
     "feishu": {
         "webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/xxxx", 飞书机器人webhook
         "secret":"xxxx"  飞书机器人秘钥
+    },
+    "timing_task":{
+        "week":"1-5",    每周一至五
+        "hour":9,        上午9点30分执行一次
+        "minute":30         
     }
 }
 ```
@@ -93,8 +104,12 @@ pip freeze > requirements.txt
 ## 单元测试
 
 ```shell
-cd src/test
 pytest
+```
+
+## 定时任务
+```
+python main.py
 ```
 
 

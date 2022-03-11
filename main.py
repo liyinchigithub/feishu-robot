@@ -1,42 +1,43 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
+from datetime import datetime
+from apscheduler.schedulers.blocking import BlockingScheduler
+from src.api.feishu_sign import sign
+import sys
+import os
 from util.get_json import config
 from asyncio.log import logger
-import pytest,time,sys,os
+import datetime
 from jira import JIRA
 from datetime import datetime as dt
+import time
 from src.api.log import log  # 封装日志引入
 from src.api.feishu_robot_push import feishu_robot  # 飞书机器人引入
-from src.api.feishu_sign import sign# 飞书签名
+from src.api.feishu_sign import sign  # 飞书签名
+
 # 日志实例化
 logger = log().logger()
 # 读取配置文件
-Config = config(os.getcwd()+"/config/config.json").get_config_from_json()
-UserInfo = config(os.getcwd()+"/config/userInfo.json").get_config_from_json()
+Config = config("{}/config/config.json".format(os.getcwd())
+                ).get_config_from_json()
+UserInfo = config("{}/config/userInfo.json".format(os.getcwd())
+                  ).get_config_from_json()
 # jira初始化
 jira = JIRA(auth=(Config["jira"]["username"], Config["jira"]
             ["password"]), options={'server': Config["jira"]["url"]})
 # 飞书签名
-from src.api.feishu_sign import sign
 timestamp = str(round(time.time()))
 secret = Config["feishu"]["secret"]
-sign=sign(timestamp,secret).gen_sign()
+sign = sign(timestamp, secret).gen_sign()
 
 
-
-@pytest.mark.skip
-def test():
-    # 查询问题，支持JQL语句
-    open_issues = jira.search_issues(
-        'status = 激活 AND creator in ("liyc") ORDER BY priority DESC, updated DESC', maxResults=-1)
-    # 激活、已关闭、已解决
-    # 注意：如果不加maxResults=-1参数，则实际总数大于50时只能查出50条数据。
-    print("open_issues:", open_issues)
-    print("open_issues:", len(open_issues))
-
-
-@pytest.mark.test
-def test_feishu_post():
+"""
+    @Time :2022/02/11
+    @Author :liyinchi
+    @File :main.py
+    @Ddescription: 定时任务
+"""
+def job():
     # 存放jira bug list
     result = []
     # 读取人员名单
@@ -55,8 +56,8 @@ def test_feishu_post():
         result.append([
             {"username": worker["username"]},
             {"name": worker["name"]},
-            {"open":[]}, # 激活状态bug list
-            {"resolved":[]} # 已解决状态bug list
+            {"open": []},  # 激活状态bug list
+            {"resolved": []}  # 已解决状态bug list
         ])
         """
             result的数据格式：
@@ -66,18 +67,19 @@ def test_feishu_post():
         """
         # 放入第一层数据open节点中
         for index in range(len(open_issues)):
-            print("result[{}]][2]".format(i),result[i][2])
+            print("result[{}]][2]".format(i), result[i][2])
             (result[i][2])['open'].append({
                 "key": open_issues[index].key,
                 "id": open_issues[index].id,
                 "url": Config["jira"]["url_browse"]+open_issues[index].key,
             })
-        resolved_issues = jira.search_issues('status = 已解决 AND creator in ("'+worker["username"]+'") ORDER BY priority DESC, updated DESC', maxResults=-1)
+        resolved_issues = jira.search_issues(
+            'status = 已解决 AND creator in ("'+worker["username"]+'") ORDER BY priority DESC, updated DESC', maxResults=-1)
         # 日志输出
         logger.info('【{}】{}'.format(worker["username"], resolved_issues))
         # 放入第一层数据resolved节点中
         for index in range(len(resolved_issues)):
-            print("result[{}][3]".format(i),result[i][3])
+            print("result[{}][3]".format(i), result[i][3])
             (result[i][3])['resolved'].append({
                 "key": resolved_issues[index].key,
                 "id": resolved_issues[index].id,
@@ -85,7 +87,7 @@ def test_feishu_post():
             })
         i += 1
     logger.info('result' + str(result))
-    
+
     """
         result的数据格式：
         [[{"username":"zhanggsan"},{"name":"张三"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}],
@@ -101,7 +103,7 @@ def test_feishu_post():
         logger.info("姓名:" + j[1]['name'])
         logger.info("open bug：" + str(len(j[2]["open"])-1))
         logger.info("resolved bug:" + str(len(j[3]["resolved"])-1))
-        
+
         message_body = {
             "timestamp": timestamp,
             "sign": sign,
@@ -163,16 +165,10 @@ def test_feishu_post():
         logger.info(response_message)
 
 
-@pytest.mark.skip
-def test_feishu_text():
-    # 飞书机器人群关键字
-    key_word = "jira"
-    # 发送内容
-    message_body = {
-        "msg_type": "text",
-        "content": {"text": key_word + "你要发送的消息"}
-    }
-    # 发送飞书机器人
-    response_message = feishu_robot(
-        Config["feishu"]["webhook"], message_body).push()
-    logger.info(response_message)
+# BlockingScheduler
+scheduler = BlockingScheduler()
+# 创建定时器
+scheduler.add_job(job, 'cron', day_of_week=Config["timing_task"]["week"], hour=Config["timing_task"]
+                  ["hour"], minute=Config["timing_task"]["minute"])  # 每周1-5 上午9点30分执行
+# 启动
+scheduler.start()
