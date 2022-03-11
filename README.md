@@ -4,7 +4,8 @@
 
 飞书机器人，每日发送测试人员缺陷情况到飞书群
 
-<img width="400" height="400" alt="image" src="https://user-images.githubusercontent.com/19643260/157470829-97598419-f16f-4f6a-b95b-45756a116035.png">
+<img width="400"  height="400" alt="image" src="https://user-images.githubusercontent.com/19643260/157842596-dec9c23e-eb62-4136-a894-1676de4bfb82.png">
+
 
 # 环境要求
 |环境|版本|
@@ -111,6 +112,10 @@ pytest
 ```
 python main.py
 ```
+
+## 服务器部署启动
+使用pm2进程守护启动
+<img width="1106" alt="image" src="https://user-images.githubusercontent.com/19643260/157842375-b126e2b9-74ce-4fc9-b07e-24706c95351f.png">
 
 
 # 飞书机器人
