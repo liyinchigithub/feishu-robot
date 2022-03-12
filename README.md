@@ -4,7 +4,7 @@
 
 飞书机器人，每日发送测试人员缺陷情况到飞书群
 
-<img width="400"  height="400" alt="image" src="https://user-images.githubusercontent.com/19643260/157842596-dec9c23e-eb62-4136-a894-1676de4bfb82.png">
+<img width="400"  height="400" alt="image" src="https://user-images.githubusercontent.com/19643260/158024815-9871c401-d023-41cf-bc4e-b99445469946.png">
 
 
 # 环境要求
