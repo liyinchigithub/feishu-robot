@@ -1,5 +1,0 @@
-2022-03-11 16:12:08,755 - src.api.log - INFO - {'Extra': None, 'StatusCode': 0, 'StatusMessage': 'success'}
-2022-03-11 16:12:08,756 - src.api.log - INFO - 姓名:李银池
-2022-03-11 16:12:08,756 - src.api.log - INFO - open bug：10
-2022-03-11 16:12:08,756 - src.api.log - INFO - resolved bug:0
-2022-03-11 16:12:09,140 - src.api.log - INFO - {'Extra': None, 'StatusCode': 0, 'StatusMessage': 'success'}

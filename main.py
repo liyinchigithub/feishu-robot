@@ -47,24 +47,20 @@ def job():
     k = 0
     # 遍历人员名单
     for worker in workers:
-        # 注意：如果不加maxResults=-1参数，则实际总数大于50时只能查出50条数据。
+        # [激活状态bug数量]
         open_issues = jira.search_issues(
-            'status = 激活 AND creator in ("'+worker["username"]+'") ORDER BY priority DESC, updated DESC', maxResults=-1)
+            'status = 激活 AND creator in ("'+worker["username"]+'") ORDER BY priority DESC, updated DESC', maxResults=-1)# 注意：如果不加maxResults=-1参数，则实际总数大于50时只能查出50条数据。
         # 日志输出
         logger.info('【{}】{}'.format(worker["username"], open_issues))
         # 放入第一层数据
         result.append([
             {"username": worker["username"]},
             {"name": worker["name"]},
-            {"open": []},  # 激活状态bug list
-            {"resolved": []}  # 已解决状态bug list
+            {"open": []},  # 截止今日，”激活“状态bug总数 list
+            {"resolved": []},  # 截止今日，"已解决"状态bug总数 list
+            {"last_week_add": []},  # "最近一周新增，"bug总数list
+            {"last_week_close": []}  # "最近一周关闭，"bug总数list
         ])
-        """
-            result的数据格式：
-            [[{"username":"zhanggsan"},{"name":"张三"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}],
-            [{"username":"lisi"},{"name":"李四"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}],
-            [{"username":"wangwu"},{"name":"王五"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}]]
-        """
         # 放入第一层数据open节点中
         for index in range(len(open_issues)):
             print("result[{}]][2]".format(i), result[i][2])
@@ -73,6 +69,7 @@ def job():
                 "id": open_issues[index].id,
                 "url": Config["jira"]["url_browse"]+open_issues[index].key,
             })
+        # [开发已解决状态bug数量]
         resolved_issues = jira.search_issues(
             'status = 已解决 AND creator in ("'+worker["username"]+'") ORDER BY priority DESC, updated DESC', maxResults=-1)
         # 日志输出
@@ -85,14 +82,40 @@ def job():
                 "id": resolved_issues[index].id,
                 "url": Config["jira"]["url_browse"]+resolved_issues[index].key,
             })
+        # [最近一周新建bug数量]
+        last_week_add_issues = jira.search_issues(
+            'creator in ("'+worker["username"]+'")  AND created >= -1w ORDER BY priority DESC, updated DESC', maxResults=-1)
+        # 日志输出
+        logger.info('【{}】{}'.format(worker["username"], last_week_add_issues))
+        # 放入第一层数据last_week_add节点中
+        for index in range(len(last_week_add_issues)):
+            print("result[{}][4]".format(i), result[i][4])
+            (result[i][4])['last_week_add'].append({
+                "key": last_week_add_issues[index].key,
+                "id": last_week_add_issues[index].id,
+                "url": Config["jira"]["url_browse"]+last_week_add_issues[index].key,
+            })
+        # [最近一周关闭bug数量]
+        last_week_close_issues = jira.search_issues(
+            'status = 已关闭 AND creator in ("'+worker["username"]+'")  AND created >= -1w ORDER BY priority DESC, updated DESC', maxResults=-1)
+        # 日志输出
+        logger.info('【{}】{}'.format(worker["username"], last_week_close_issues))
+        # 放入第一层数据last_week_close节点中
+        for index in range(len(last_week_close_issues)):
+            print("result[{}][5]".format(i), result[i][5])
+            (result[i][5])['last_week_close'].append({
+                "key": last_week_close_issues[index].key,
+                "id": last_week_close_issues[index].id,
+                "url": Config["jira"]["url_browse"]+last_week_close_issues[index].key,
+            })
         i += 1
     logger.info('result' + str(result))
 
     """
         result的数据格式：
-        [[{"username":"zhanggsan"},{"name":"张三"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}],
+        [[{"username":"zhanggsan"},{"name":"张三"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"last_week_add":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"last_week_close":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}],
         [{"username":"lisi"},{"name":"李四"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}],
-        [{"username":"王五"},{"name":"王五"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}]]
+        [{"username":"wangwu"},{"name":"王五"},{"open":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}],"resolved":[{"key":xxx,"id":xxx},{"key":xxx,"id":xxx}]}]]
     """
     # 遍历result 依次调用飞书机器人发送结果
     i = 0
@@ -101,9 +124,10 @@ def job():
         # logger.info("j数据类型："+ str(type(j)))  # <class 'list'>
         # 姓名
         logger.info("姓名:" + j[1]['name'])
-        logger.info("open bug：" + str(len(j[2]["open"])-1))
-        logger.info("resolved bug:" + str(len(j[3]["resolved"])-1))
-
+        logger.info("激活 bug：" + str(len(j[2]["open"])-1))
+        logger.info("已解决 bug:" + str(len(j[3]["resolved"])-1))
+        logger.info("最近一周新增 bug:" + str(len(j[4]["last_week_add"])-1))
+        logger.info("最近一周关闭 bug:" + str(len(j[5]["last_week_close"])-1))
         message_body = {
             "timestamp": timestamp,
             "sign": sign,
@@ -116,7 +140,7 @@ def job():
                         "content": [
                             [{
                                 "tag": "text",
-                                "text": "未处理：{}".format(len(j[2]["open"])-1),
+                                "text": "未处理：{}".format(len(j[2]["open"])),
                             },
                                 {
                                 "tag": "a",
@@ -125,22 +149,31 @@ def job():
                             }],
                             [{
                                 "tag": "text",
-                                "text": "已解决：{}".format(len(j[3]["resolved"])-1),
+                                "text": "已解决：{}".format(len(j[3]["resolved"])),
                             },
                                 {
                                 "tag": "a",
                                 "href": "https://jira.homeking365.com/browse/S5A-1924?filter=10818&jql=status = {} AND assignee in ({}) ORDER BY priority DESC, updated DESC".format("已解决", j[0]['username']),
                                 "text": "点击查看"
                             }],
-                            # [{
-                            #     "tag": "text",
-                            #     "text": "已关闭：{}".format(len(j)-1),
-                            # },
-                            #     {
-                            #     "tag": "a",
-                            #     "href": "https://jira.homeking365.com/browse/S5A-1924?filter=10818&jql=status = {} AND assignee in ({}) ORDER BY priority DESC, updated DESC".format("已关闭", j[0]['username']),
-                            #     "text": "点击查看"
-                            # }],
+                            [{
+                                "tag": "text",
+                                "text": "最近一周新增bug：{}".format(len(j[4]["last_week_add"])),
+                            },
+                                {
+                                "tag": "a",
+                                "href": "https://jira.homeking365.com/browse/S5A-1924?filter=10818&jql=creator in ({}) AND created >= -1w ORDER BY priority DESC, updated DESC".format(j[0]['username']),
+                                "text": "点击查看"
+                            }],
+                            [{
+                                "tag": "text",
+                                "text": "最近一周关闭bug：{}".format(len(j[5]["last_week_close"])),
+                            },
+                                {
+                                "tag": "a",
+                                "href": "https://jira.homeking365.com/browse/S5A-1924?filter=10818&jql=status = {} AND assignee in ({}) ORDER BY priority DESC, updated DESC".format("已关闭", j[0]['username']),
+                                "text": "点击查看"
+                            }],
                             # [
                             #     {
                             #         "tag": "at",
