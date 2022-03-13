@@ -1,6 +1,8 @@
 # feishu-robot
 
-[![python](https://img.shields.io/badge/python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/) [![pip](https://img.shields.io/badge/pip-22.0.4-yellow.svg)](https://pip.pypa.io/en/stable/)
+[![python](https://img.shields.io/badge/python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/) [![pip](https://img.shields.io/badge/pip-22.0.4-yellow.svg)](https://pip.pypa.io/en/stable/)[![jira](https://img.shields.io/badge/JIRA-v8.12.0-blue.svg)](https://www.atlassian.com/software/jira)
+
+ 
 
 飞书机器人，每日发送测试人员缺陷情况到飞书群
 
