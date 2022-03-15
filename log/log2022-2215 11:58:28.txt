@@ -1,0 +1,8 @@
+2022-03-15 11:58:50,421 - src.api.log - INFO - {'Extra': None, 'StatusCode': 0, 'StatusMessage': 'success'}
+2022-03-15 11:58:50,422 - src.api.log - INFO - 姓名:李银池
+2022-03-15 11:58:50,422 - src.api.log - INFO - 激活 bug：11
+2022-03-15 11:58:50,422 - src.api.log - INFO - 已解决 bug:0
+2022-03-15 11:58:50,422 - src.api.log - INFO - 最近一周新增 bug:1
+2022-03-15 11:58:50,422 - src.api.log - INFO - 最近一周关闭 bug:-1
+2022-03-15 11:58:50,995 - src.api.log - INFO - {'Extra': None, 'StatusCode': 0, 'StatusMessage': 'success'}
+2022-03-15 11:58:51,320 - src.api.log - INFO - {'code': 19021, 'data': {}, 'msg': 'sign match fail or timestamp is not within one hour from current time'}

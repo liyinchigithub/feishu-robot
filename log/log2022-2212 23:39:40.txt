@@ -1,7 +1,0 @@
-2022-03-12 23:40:13,847 - src.api.log - INFO - {'Extra': None, 'StatusCode': 0, 'StatusMessage': 'success'}
-2022-03-12 23:40:13,849 - src.api.log - INFO - 姓名:李银池
-2022-03-12 23:40:13,849 - src.api.log - INFO - 激活 bug：10
-2022-03-12 23:40:13,849 - src.api.log - INFO - 已解决 bug:0
-2022-03-12 23:40:13,849 - src.api.log - INFO - 最近一周新增 bug:2
-2022-03-12 23:40:13,849 - src.api.log - INFO - 最近一周关闭 bug:0
-2022-03-12 23:40:14,312 - src.api.log - INFO - {'Extra': None, 'StatusCode': 0, 'StatusMessage': 'success'}

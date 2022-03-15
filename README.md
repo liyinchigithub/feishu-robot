@@ -106,9 +106,17 @@ python setup.py install
 
 ## 单元测试
 
+* pytest
 ```shell
 pytest
 ```
+* unittest
+```shell
+python -m unittest -v src.test.unit_test.TestFeishuRobot
+# python -m unittest 文件名.类名.方法名
+```
+[unittest](https://docs.python.org/zh-cn/3/library/unittest.html)
+[测试报告](http://tungwaiyip.info/software/HTMLTestRunner.html)
 
 ## 定时任务
 ```
