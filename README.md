@@ -124,9 +124,13 @@ python main.py
 ```
 
 ## 服务器部署启动
-使用pm2进程守护启动
-<img width="1106" alt="image" src="https://user-images.githubusercontent.com/19643260/157842375-b126e2b9-74ce-4fc9-b07e-24706c95351f.png">
+第一种方式：
+```shell
+nohup python main.py >> feishu-robot-python-main.log 2>&1 &
+```
 
+第二种方式：使用pm2进程守护启动
+<img width="1106" alt="image" src="https://user-images.githubusercontent.com/19643260/157842375-b126e2b9-74ce-4fc9-b07e-24706c95351f.png">
 
 # 飞书机器人
 
