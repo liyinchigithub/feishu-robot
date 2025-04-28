@@ -15,6 +15,55 @@
 |python|3.7.4|
 |pip|22.0.4|
  
+## python3.7.4安装
+
+1. 首先，让我们检查当前的Python软链接：
+
+```shell
+ls -l /usr/local/bin/python*
+ls -l /usr/bin/python*
+```
+2. 删除错误的软链接：
+```shell
+rm -f /usr/local/bin/python3.8
+```
+3. 确保Python 3.7.4安装正确：
+```shell
+cd /tmp/Python-3.7.4
+make clean
+./configure --prefix=/usr/local
+make
+make install
+```
+4. 创建正确的软链接：
+```shell
+ln -sf /usr/local/bin/python3.7 /usr/local/bin/python
+ln -sf /usr/local/bin/python3.7 /usr/local/bin/python3
+```
+
+5. 更新 PATH 环境变量：
+```shell
+echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+6. 验证安装：
+```bash
+python --version
+python3 --version
+```
+7. 重要提示：
+
+- 确保你已经完成了Python 3.7.4的编译和安装
+- **不要删除系统原有的Python 2，因为很多系统工具依赖它**
+- 如果上述步骤执行后仍然出现问题，可能需要检查：
+
+Python安装目录的权限
+
+系统PATH环境变量的设置
+
+确保make install命令执行成功
+- 如果执行完这些步骤后仍然遇到问题，请告诉我具体的错误信息，我会帮你进一步排查。
+
  
 ## 更新pip
 
@@ -63,6 +112,15 @@ python setup.py install
 nohup python app.py >> feishu-robot.log 2>&1 &
 ```
 
+- 手动安装定时任务
+```shell
+ pip install schedule
+ ```
+
+- 降级 urllib3 到兼容的版本
+```
+pip install urllib3==1.26.6
+```
 
 
 # 项目使用说明
