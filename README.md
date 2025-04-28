@@ -26,7 +26,7 @@ pip install --upgrade pip
 
 ```shell
 # python -m venv 虚拟环境名称，名称是随意起的
-python -m venv tutorial-env
+python3 -m venv tutorial-env
 ```
 
 ## 激活虚拟环境
@@ -44,7 +44,7 @@ tutorial-env\Scripts\activate.bat
 
 ### 项目依赖安装
 ```shell
-python3.7 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
@@ -56,6 +56,13 @@ pip freeze > requirements.txt
 ```shell
 python setup.py install 
 ```
+
+### 部署服务器
+
+```bash
+nohup python app.py >> feishu-robot.log 2>&1 &
+```
+
 
 
 # 项目使用说明
@@ -82,6 +89,11 @@ python setup.py install
         "minute":30         
     }
 }
+
+	"feishu": {
+		"webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/cd6cd5c5-5761-45f8-a0ff-c75953c73d98",
+		"secret": "dthHKmM39hEvJyGMAC30fb"
+	},
 ```
 （2）jira账号和姓名（配置测试团队成员）
 >config/userInfo.json
@@ -105,6 +117,11 @@ python setup.py install
 # 运行脚本
 
 ## 单元测试
+
+定时任务
+```
+nohup python3 /Users/liyinchi/workspace/python/feishu-robot-zqj/app.py &
+```
 
 * pytest
 ```shell

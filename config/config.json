@@ -6,12 +6,27 @@
 		"password": "你的jira密码"
 	},
 	"feishu": {
-		"webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/xxxx",
-		"secret": "xxxx"
+		"webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/164152e2-8ad5-4636-a307-1f23f882ebfa",
+		"secret": "PQ8aT59hNGTDC5QSaughF"
 	},
 	"timing_task": {
 		"week": "1-5",
 		"hour": 9,
 		"minute": 30
+	},
+	"cleaning_lottery": {
+		"week": "5",
+		"hour": 11,
+		"minute": 0,
+		"members": [
+			{"name": "银池", "gender": "男"},
+			{"name": "星秀", "gender": "女"},
+			{"name": "玉辉", "gender": "男"},
+			{"name": "陈立", "gender": "男"},
+			{"name": "吴莹", "gender": "女"},
+			{"name": "杨柳", "gender": "男"},
+			{"name": "邵鹏", "gender": "男"}
+		],
+		"tasks": ["拖地", "窗户", "办公桌", "柜子", "茶几+冰箱", "会议桌", "摆椅子+扔垃圾"]
 	}
 }

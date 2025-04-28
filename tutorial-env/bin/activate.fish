@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/liyinchi/workspace/python/JiraEase/tutorial-env"
+set -gx VIRTUAL_ENV "/Users/liyinchi/workspace/python/feishu-robot-zqj/tutorial-env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

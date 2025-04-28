@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: XTestRunner
+Version: 1.2.0
+Summary: Modern style test report based on unittest framework.
+Home-page: https://github.com/seldomQA/XTestRunner/
+Author: bugmaster
+Author-email: fnngj@126.com
+License: BSD
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Testing
+Requires-Dist: jinja2 (>=2.11.3)
+
+Modern style test report based on unittest framework.
+
+
